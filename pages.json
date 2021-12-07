@@ -1,0 +1,74 @@
+{
+	"pages": [
+		{
+            "path" : "pages/tabBar/buy/buy",
+			"style":{
+				"backgroundColor":"#f5f5f9",
+				"enablePullDownRefresh": true
+			}
+        },
+		{
+            "path" : "pages/tabBar/disting/disting"
+        },
+		{
+            "path" : "pages/tabBar/wash/wash"
+        },
+		{
+            "path" : "pages/tabBar/my/my"
+        },
+		{
+            "path" : "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"backgroundColor":"#FFFFFF"
+			}
+        },
+		{
+            "path" : "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "商品详情"
+			}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "仿得物",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	},
+	"tabBar": {
+		"color":"#666666",
+		"selectedColor":"#333333",
+		"borderStyle":"white",
+		"backgroundColor":"#f8f9fb",
+		"list": [
+			{
+				"text":"购买",
+				"pagePath":"pages/tabBar/buy/buy",
+				"iconPath":"static/img/buy.png",
+				"selectedIconPath":"static/img/buy_active.png"
+			},
+			{
+				"text":"鉴别查询",
+				"pagePath":"pages/tabBar/disting/disting",
+				"iconPath":"static/img/vip.png",
+				"selectedIconPath":"static/img/vip_active.png"
+			},
+			{
+				"text":"洗护",
+				"pagePath":"pages/tabBar/wash/wash",
+				"iconPath":"static/img/wash.png",
+				"selectedIconPath":"static/img/wash_active.png"
+			},
+			{
+				"text":"我",
+				"pagePath":"pages/tabBar/my/my",
+				"iconPath":"static/img/my.png",
+				"selectedIconPath":"static/img/my_active.png"
+			}
+		]
+	}
+}

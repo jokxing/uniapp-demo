@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/tabBar/buy/buy",
+    "pages/tabBar/disting/disting",
+    "pages/tabBar/wash/wash",
+    "pages/tabBar/my/my",
+    "pages/search/search",
+    "pages/detail/detail"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "仿得物",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#333333",
+    "borderStyle": "white",
+    "backgroundColor": "#f8f9fb",
+    "list": [
+      {
+        "text": "购买",
+        "pagePath": "pages/tabBar/buy/buy",
+        "iconPath": "static/img/buy.png",
+        "selectedIconPath": "static/img/buy_active.png"
+      },
+      {
+        "text": "鉴别查询",
+        "pagePath": "pages/tabBar/disting/disting",
+        "iconPath": "static/img/vip.png",
+        "selectedIconPath": "static/img/vip_active.png"
+      },
+      {
+        "text": "洗护",
+        "pagePath": "pages/tabBar/wash/wash",
+        "iconPath": "static/img/wash.png",
+        "selectedIconPath": "static/img/wash_active.png"
+      },
+      {
+        "text": "我",
+        "pagePath": "pages/tabBar/my/my",
+        "iconPath": "static/img/my.png",
+        "selectedIconPath": "static/img/my_active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": ""
+    }
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}
