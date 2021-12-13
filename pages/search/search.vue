@@ -26,5 +26,5 @@
 </script>
 
 <style scoped lang="scss">
-	@import './search.scss'
+	@import './search.scss';
 </style>

@@ -57,7 +57,7 @@
         "usingComponents" : true,
         "permission" : {
             "scope.userLocation" : {
-                "desc" : ""
+                "desc" : "测试项目"
             }
         }
     }

@@ -28,6 +28,20 @@
 			"style": {
 				"navigationBarTitleText": "商品详情"
 			}
+        },
+		{
+            "path" : "pages/kinds/kinds",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"backgroundColor":"#FFFFFF"
+			}
+        },
+		{
+            "path" : "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "地图",
+				"backgroundColor":"#FFFFFF"
+			}
         }
     ],
 	"globalStyle": {
@@ -53,7 +67,8 @@
 			},
 			{
 				"text":"鉴别查询",
-				"pagePath":"pages/tabBar/disting/disting",
+				// "pagePath":"pages/tabBar/disting/disting",
+				"pagePath":"pages/map/map",
 				"iconPath":"static/img/vip.png",
 				"selectedIconPath":"static/img/vip_active.png"
 			},

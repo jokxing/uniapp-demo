@@ -1,0 +1,84 @@
+.kinds_page{
+	background-color: #fff;
+	width: 100%;
+	height: 100vh;
+	position: relative;
+}
+
+.search{
+	width: 100vw;
+	position: fixed;
+	top: 0;
+	background-color: #fff;
+	z-index: 1;
+}
+
+.kinds {
+	height: 100vh;
+	display: flex;
+	overflow: hidden;
+	
+	.hd{
+		height: calc(100vh - 112rpx);
+		width: 25vw;
+		background-color: #fff;
+		color: #333;
+		margin-top: 112rpx;
+		
+		.scroll-view-left{
+			height:100%;
+			width:100%;
+			font: 0;
+			
+			.scroll-view-left-item{
+				display: inline-block;
+				font-size: 10pt;
+				height: 118rpx;
+				line-height: 118rpx;
+				width: 100%;
+				font-weight: bold;
+				text-align: center;
+				margin: 0 0 2rpx 0;
+				background-color: #F4F3F8;
+			}
+			.active{
+				background-color: #fff;
+				color: #00cbcc;
+			}
+		}
+	}
+	
+	.bd {
+		height: calc(100vh - 112rpx);
+		flex: 1;
+		overflow: hidden;
+		background-color: #fff;
+		margin-top: 112rpx;
+		
+		.scroll-view-right{
+			width:100%;
+			height:100%;
+			
+			.kind-title .scroll-view-item{
+				text-align: center;
+				display: flex;
+				flex-direction:row;
+				align-items:center;
+				
+				.image{
+					margin-top: 35rpx;
+					
+					image{
+						width: 100rpx; 
+						height: 64rpx
+					}
+				}
+				
+				text{
+					font-size: 26rpx;
+					margin-top: 10rpx;
+				}
+			}
+		}
+	}
+}

@@ -6,7 +6,7 @@
 					<uni-icons type="search" size="20" color="#b2b2b2"></uni-icons>
 					<text>搜索单号</text>
 				</view>
-				<view class="kinds">
+				<view class="kinds" @click="goKinds">
 					<image src="https://cdn.poizon.com/node-common/R3JvdXAlMjA2QDN4MTU5MjIyMjY4OTE5Mw==.png" mode=""></image>
 				</view>
 			</view>
@@ -17,7 +17,7 @@
 			</scroll-view>
 		</view>
 		
-		<uni-grid class="grid-hd" :showBorder="false" :square="false" :column="3">
+		<uni-grid class="grid-hd" :showBorder="false" :highlight="false" :square="false" :column="3">
 			<uni-grid-item class="grid-hd-box">
 				<view><image src="../../../static/c1.png"></image>正品保障</view>
 			</uni-grid-item>
@@ -30,10 +30,10 @@
 		</uni-grid>
 		
 		<view class="content">
-			<uni-grid :column="2" borderColor="#f5f5f9" @change="goDetail">
-			    <uni-grid-item class="content-box" v-for="item in buyList" :key="item.index">
+			<uni-grid :column="2" borderColor="#f5f5f9" :highlight="false" @change="goDetail">
+			    <uni-grid-item class="content-box" v-for="(item,index) in buyList" :key="index">
 					<view class="image">
-						<image :src="item.pic" style="width:300rpx;height:192rpx;"></image>
+						<image :src="item.pic"></image>
 					</view>
 			        <view class="title">{{ item.title }}</view>
 					<view class="item-text">
@@ -78,11 +78,16 @@
 				uni.navigateTo({
 					url: '/pages/detail/detail'
 				})
+			},
+			goKinds () {
+				uni.navigateTo({
+					url: '/pages/kinds/kinds'
+				})
 			}
 		}
 	}
 </script>
 
 <style scoped lang="scss">
-	@import url("./buy.scss");
+	@import "./buy.scss";
 </style>

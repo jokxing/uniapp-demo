@@ -11,7 +11,7 @@
 		</view>
 		
 		<view class="detail_hd_infor detail_box uni-row">
-			<view class="detail_hd_infor_t uni-row">
+			<view class="top uni-row">
 				<text class="price">￥{{ infor.price }}</text>
 				<text class="don">{{ infor.doh }}</text>
 			</view>
@@ -56,7 +56,7 @@
 			</view>
 		</view>
 		
-		<view class="detail_ex detail_box">
+		<view class="detail_box">
 			<text>商品展示</text>
 			<view class="img">
 				<image v-for="(item,index) in data.headimg" :key="index" :src="item.pic" mode="aspectFit"></image>
@@ -69,7 +69,7 @@
 		
 		<!-- 尺码弹出层 -->
 		<uni-popup class="detail_size" ref="popup" type="bottom" background-color="#fafafd">
-			<view class="close" @click="close">X</view>
+			<uni-icons class="close" type="closeempty" size="20" @click="close"></uni-icons>
 			<view class="hd">
 				<view class="img">
 					<image :src="infor.pic" mode="aspectFit"></image>
@@ -153,5 +153,5 @@
 </script>
 
 <style scoped lang="scss">
-	@import url("./detail.scss");
+	@import "./detail.scss";
 </style>

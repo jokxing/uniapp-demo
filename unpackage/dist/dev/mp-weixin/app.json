@@ -5,7 +5,9 @@
     "pages/tabBar/wash/wash",
     "pages/tabBar/my/my",
     "pages/search/search",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/kinds/kinds",
+    "pages/map/map"
   ],
   "subPackages": [],
   "window": {
@@ -28,7 +30,7 @@
       },
       {
         "text": "鉴别查询",
-        "pagePath": "pages/tabBar/disting/disting",
+        "pagePath": "pages/map/map",
         "iconPath": "static/img/vip.png",
         "selectedIconPath": "static/img/vip_active.png"
       },
@@ -48,7 +50,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": ""
+      "desc": "测试项目"
     }
   },
   "usingComponents": {},

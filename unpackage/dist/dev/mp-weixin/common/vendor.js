@@ -1380,11 +1380,33 @@ function handleEvent(event) {var _this = this;
   }
 }
 
+var messages = {};
+
 var locale;
 
 {
   locale = wx.getSystemInfoSync().language;
 }
+
+function initI18nMessages() {
+  if (!isEnableLocale()) {
+    return;
+  }
+  var localeKeys = Object.keys(__uniConfig.locales);
+  if (localeKeys.length) {
+    localeKeys.forEach(function (locale) {
+      var curMessages = messages[locale];
+      var userMessages = __uniConfig.locales[locale];
+      if (curMessages) {
+        Object.assign(curMessages, userMessages);
+      } else {
+        messages[locale] = userMessages;
+      }
+    });
+  }
+}
+
+initI18nMessages();
 
 var i18n = (0, _uniI18n.initVueI18n)(
 locale,
@@ -1427,6 +1449,19 @@ function initAppLocale(Vue, appVm, locale) {
     } });
 
 }
+
+function isEnableLocale() {
+  return typeof __uniConfig !== 'undefined' && __uniConfig.locales && !!Object.keys(__uniConfig.locales).length;
+}
+
+// export function initI18n() {
+//   const localeKeys = Object.keys(__uniConfig.locales || {})
+//   if (localeKeys.length) {
+//     localeKeys.forEach((locale) =>
+//       i18n.add(locale, __uniConfig.locales[locale])
+//     )
+//   }
+// }
 
 var eventChannels = {};
 
@@ -2050,7 +2085,158 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 108:
+/***/ 100:
+/*!****************************************************************************************************!*\
+  !*** D:/uniapp/uniapp-demo/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hans.json ***!
+  \****************************************************************************************************/
+/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"请输入搜索内容\"}");
+
+/***/ }),
+
+/***/ 101:
+/*!****************************************************************************************************!*\
+  !*** D:/uniapp/uniapp-demo/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hant.json ***!
+  \****************************************************************************************************/
+/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"請輸入搜索內容\"}");
+
+/***/ }),
+
+/***/ 11:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 130:
 /*!*****************************************************************************************************!*\
   !*** D:/uniapp/uniapp-demo/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
   \*****************************************************************************************************/
@@ -2187,135 +2373,6 @@ function createAnimation(option, _this) {
   return new MPAnimation(option, _this);
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 11:
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    if (!options.components) {
-      options.components = {}
-    }
-    var hasOwn = Object.prototype.hasOwnProperty
-    for (var name in components) {
-      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
-        options.components[name] = components[name]
-      }
-    }
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
 
 /***/ }),
 
@@ -8896,7 +8953,18 @@ module.exports = JSON.parse("{\"headimg\":[{\"pic\":\"https://cdn.poizon.com/sou
 
 /***/ }),
 
-/***/ 61:
+/***/ 62:
+/*!***************************************************!*\
+  !*** D:/uniapp/uniapp-demo/static/json/kind.json ***!
+  \***************************************************/
+/*! exports provided: kindNav, kindItem, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"kindNav\":[{\"type\":\"0\",\"text\":\"推荐\"},{\"type\":\"1\",\"text\":\"品牌\"},{\"type\":\"2\",\"text\":\"系列\"},{\"type\":\"3\",\"text\":\"主题\"},{\"type\":\"4\",\"text\":\"潮鞋\"},{\"type\":\"5\",\"text\":\"潮服\"},{\"type\":\"6\",\"text\":\"箱包\"},{\"type\":\"7\",\"text\":\"美妆\"},{\"type\":\"8\",\"text\":\"配饰\"},{\"type\":\"9\",\"text\":\"手表\"},{\"type\":\"10\",\"text\":\"数码\"},{\"type\":\"11\",\"text\":\"女装\"},{\"type\":\"12\",\"text\":\"潮玩\"},{\"type\":\"13\",\"text\":\"运动\"},{\"type\":\"14\",\"text\":\"家居\"},{\"type\":\"15\",\"text\":\"家电\"},{\"type\":\"16\",\"text\":\"汽车\"},{\"type\":\"17\",\"text\":\"艺术\"}],\"kindItem\":[{\"title\":\"热门分类\",\"type\":\"0\",\"list\":[{\"title\":\"板鞋\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201225/afe6297c9d7543b19a360eeb1fc4649a.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"帆布鞋\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201225/bc6b8824eb3e4aff837df498c758e972.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"跑步鞋\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201225/15d8fde3977d42dcafa665a44a9fa82c.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"篮球鞋\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201207/20658f90b7814cf1889ff49e34821293.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"口红\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201204/86e4b6e9e22b4fd0a91f05eedb1e2516.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"T恤\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201205/4881aa39d2c54d60976983fe3da1c749.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"老爹鞋\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201205/8b325405f45b4988851ab5fc20bbfad7.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"卫衣\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201205/c47a5ea34af74d0b8727a15b643b4864.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"休闲裤\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201206/8ed0fd0d06904af69c0d307025c9a8ae.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"项链\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/pro-img/origin-img/20210513/d1a9b7f02edb4ec7bb209da7ba6e17ae.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"香水\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/origin-img/20201204/155f19f162b042f8900507e2d994fe22.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"拖鞋\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/pro-img/origin-img/20201231/522797d75762429dbd9dbd0500d5e931.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"}]},{\"title\":\"为你推荐\",\"type\":\"1\",\"list\":[{\"title\":\"Puma\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/brand-img//1c7e3ac7c0f447858d049fc96d4fa566-2.png?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"New Balance\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/brand-img//b1ba8a75ce064ac3a239a362e60db91d-4.png?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"Reebok\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/brand-img//0d626bf7a36748b7aabda005615d3982-6.png?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"Under Armour\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/brand-img//94caf1bab621426f814d980449fed3a8-7.png?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"Jordan\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/brand-img//236e150e8f44474a915a626e79661fad-13.png?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"GUCCI\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/brand-img//d661fda27c5341bc8d94092f80f51b44-79.png?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"ENTERBAY\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/brand-img//e3f88e7a50bd486993a5fe7f76fe4a12-395.jpg?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"Supreme\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/brand-img//f3928815cda84d83b04fa36e2e6467e6-439.png?x-oss-process=image/resize,m_lfit,w_100/format,webp\"},{\"title\":\"PALACE\",\"camptype\":\"0\",\"kindimg\":\"https://cdn.poizon.com/source-img/brand-img//74c02c5de3d6461d8a9ab11b48d3ec54-577.png?x-oss-process=image/resize,m_lfit,w_100/format,webp\"}]}]}");
+
+/***/ }),
+
+/***/ 76:
 /*!*********************************************************************************!*\
   !*** D:/uniapp/uniapp-demo/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \*********************************************************************************/
@@ -10019,7 +10087,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 83:
+/***/ 98:
 /*!************************************************************************************************!*\
   !*** D:/uniapp/uniapp-demo/uni_modules/uni-search-bar/components/uni-search-bar/i18n/index.js ***!
   \************************************************************************************************/
@@ -10027,9 +10095,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 84));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 85));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 86));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 99));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 100));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 101));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   en: _en.default,
   'zh-Hans': _zhHans.default,
@@ -10037,7 +10105,7 @@ var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 8
 
 /***/ }),
 
-/***/ 84:
+/***/ 99:
 /*!***********************************************************************************************!*\
   !*** D:/uniapp/uniapp-demo/uni_modules/uni-search-bar/components/uni-search-bar/i18n/en.json ***!
   \***********************************************************************************************/
@@ -10045,28 +10113,6 @@ var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 8
 /***/ (function(module) {
 
 module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"Search enter content\"}");
-
-/***/ }),
-
-/***/ 85:
-/*!****************************************************************************************************!*\
-  !*** D:/uniapp/uniapp-demo/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hans.json ***!
-  \****************************************************************************************************/
-/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"请输入搜索内容\"}");
-
-/***/ }),
-
-/***/ 86:
-/*!****************************************************************************************************!*\
-  !*** D:/uniapp/uniapp-demo/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hant.json ***!
-  \****************************************************************************************************/
-/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"請輸入搜索內容\"}");
 
 /***/ })
 
